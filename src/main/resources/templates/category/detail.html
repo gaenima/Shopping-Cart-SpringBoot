@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detail Category</title>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-6 mx-auto my-4">
+</div >
+<h1>Category [[${category.name}]] and its products</h1>
+<table>
+<thead>
+<th>PRODUCTS</th>
+<th>PRICE</th>
+<th>QUANTITY</th>
+<th>STATUS</th>
+<th>OPTIONS</th>
+</thead>
+<tbody>
+<tr th:each="p : ${category.product}">
+<td th:text="${p.name}"></td>
+<td th:text="${p.price}"></td>
+<td th:text="${p.quantity}"></td>
+<td th:text="${pt.status==true ? 'Enabled' : 'Disabled'}"></td>
+<td><a th:href="@{/product/detail} + ${p.id}" >Detail</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<a th:href="@{/category/list}">Back</a>
+</div>
+
+</body>
+</html>
