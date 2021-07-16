@@ -19,8 +19,10 @@ public class User {
 	private Long id;
 	 @Column(length=45,nullable=false,unique=true)
 	private String mail;
-	 @Column(length=16,nullable=false)
+	 @Column(nullable=false, length=65)
 	private String password;
+	 @Column(name="verificate_code", length=64)
+	 private String verificateCode; //token
 	private boolean status;
 	@ManyToMany
 	private Set<Rol> roles;
@@ -57,5 +59,18 @@ public class User {
 	}
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
+	}
+	public String getVerificateCode() {
+		return verificateCode;
+	}
+	public void setVerificateCode(String verificateCode) {
+		this.verificateCode = verificateCode;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}	
+	
 }

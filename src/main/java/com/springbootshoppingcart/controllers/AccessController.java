@@ -1,7 +1,11 @@
 package com.springbootshoppingcart.controllers;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springbootshoppingcart.models.entity.Address;
@@ -58,6 +64,45 @@ public String signupSave(User user, Customer customer, Address address) {
 @GetMapping("/get_cities/{id}")
 @ResponseBody
 public List<City> getCities(@PathVariable(name="id")Long id, Model model) {
-	return icityrepo.showCities(id);
+	//return icityrepo.showCities(id);
+	return icityser.findCitiesByPovince(id);
 }
+/*
+@RequestMapping("/frontend/access/validateEmail")
+	public @ResponseBody String checkEmailValidity(HttpServletRequest req, Model model) {
+	String mailId = req.getParameter("email");
+	return iuserservice.uniqueByMail(mailId);
+}
+*/
+
+@GetMapping("/validateMail")
+@ResponseBody
+public String uniqueMail(@RequestParam("mailId") String mailId) {
+	return iuserservice.uniqueMail(mailId);
+	
+}
+
+
+@PostMapping("/process_register")
+public String processRegister(User user, HttpServletRequest request)
+        throws UnsupportedEncodingException, MessagingException {
+    iuserservice.register(user, getSiteURL(request));       
+    return "register_success";
+}
+ 
+private String getSiteURL(HttpServletRequest request) {
+    String siteURL = request.getRequestURL().toString();
+    return siteURL.replace(request.getServletPath(), "");
+}  
+
+
+
+
+
+
+
+
+
+
+
 }

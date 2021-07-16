@@ -28,5 +28,10 @@ private ICityRepository icityrepo;
 		icityrepo.save(city);
 		
 	}
+
+	@Override
+	public List<City> findCitiesByPovince(Long id) {
+				return icityrepo.showCities(id);
+	}
 	
 }

@@ -9,5 +9,6 @@ public interface ICityService {
 	public List<City> findAllCity();
 	public City findCityById(Long id);
 	public void saveCity(City city);
+	public List<City> findCitiesByPovince(Long id);
 
 }

@@ -3,43 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Signup form</title>
+<style>
+.error{
+color:red;
+}
+</style>
 </head>
 <body>
-<form th:action="@{/signup/save}" method="post">
+<form id="form-signup" th:action="@{/signup/save}" method="post">
 <div>
 <label>Name</label>
-<input type="text" th:field="*{customer.name}">
+<input type="text" th:field="*{customer.name}" >
 </div>
 <div>
 <label>Lastname</label>
-<input type="text" th:field="*{customer.lastname}">
+<input type="text" th:field="*{customer.lastname}" >
 </div>
 <div>
 <label>Telephone</label>
-<input type="text" th:field="*{customer.telephone}">
+<input type="text" th:field="*{customer.telephone}" >
 </div>
 
 <div>
 <label>Address</label>
 <label>Street</label>
-<input type="text" th:field="*{address.street}">
+<input type="text" th:field="*{address.street}" >
 </div>
 <div>
 <label>Number</label>
-<input type="number" th:field="*{address.number}">
+<input type="number" th:field="*{address.number}" >
 </div>
 
 <div>
 <label>Province</label>
 
-<select onchange="load_cities(this)">
+<select name="province" onchange="load_cities(this)">
 <option value="">Select a province</option>
 <option th:each="prov : ${provinces}" th:value="${prov.id}" th:text="${prov.name}"></option>
 </select>
 </div>
 <div>
 <label>City</label>
-<select th:field="*{address.city}" id="cities">
+<select th:field="*{address.city}" >
 <option value="">Select a city</option>
 </select>
 </div>
@@ -47,17 +52,24 @@
 
 <div>
 <label>e-mail</label>
-<input type="text" th:field="*{user.mail}">
+<input type="text" th:field="*{user.mail}" >
+<span id="dupliMail"></span>
+<br>
 </div>
 <div>
 <label>Password</label>
-<input type="password" th:field="*{user.password}">
+<input type="password" th:field="*{user.password}" >
 </div>
 <div>
-<button type="submit">Submit</button>
+<button id="btn-signup" type="submit">Submit</button>
 </div>
 </form>
-<script type="text/javascript" th:src="@{/frontend/js/jquery-3.6.0.min.js}"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script type="text/javascript" th:src="@{/frontend/js/validation.js}"></script>
 <script type="text/javascript">
 function load_cities(e){ //e->provincia
 	$("#cities").html('<option value="">Select a city</option>');
@@ -70,8 +82,10 @@ function load_cities(e){ //e->provincia
     	response.map(e=>$("#cities").append(`<option value="${e.id}">${e.name}</option>`))
     }).fail(error=>consle.log(error))
 }
-    
+
 
 </script>
+
+
 </body>
 </html>
